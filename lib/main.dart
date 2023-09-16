@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
+import 'app/helpers/size_helper.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
@@ -21,6 +21,9 @@ void main() async {
         child: ScreenUtilInit(
           designSize: const Size(375, 812),
           builder: (context, child) {
+            SizeHelper.instance.initSafeAreaPadding(
+                MediaQueryData.fromView(View.of(context)).padding.top,
+                MediaQueryData.fromView(View.of(context)).padding.bottom);
             return AnnotatedRegion<SystemUiOverlayStyle>(
                 value: SystemUiOverlayStyle.dark,
                 child: GetMaterialApp(
