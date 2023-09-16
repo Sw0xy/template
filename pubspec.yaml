@@ -11,6 +11,10 @@ dependencies:
   flutter: 
     sdk: flutter
   easy_localization: ^3.0.3
+  flutter_screenutil: ^5.9.0
+  easy_localization_loader: ^1.0.1+1
+  easy_localization_loader:
+    git: https://github.com/aissat/easy_localization_loader.git
 
 dev_dependencies: 
   flutter_lints: ^2.0.0

@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization_loader/easy_localization_loader.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'app/routes/app_pages.dart';
@@ -9,13 +12,28 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale('en', 'US')],
-      path: 'assets/translations',
-      child: GetMaterialApp(
-        title: "Application",
-        initialRoute: AppPages.INITIAL,
-        getPages: AppPages.routes,
-      ),
-    ),
+        supportedLocales: const [Locale('en'), Locale('tr')],
+        fallbackLocale: const Locale('en'),
+        useOnlyLangCode: true,
+        useFallbackTranslations: true,
+        path: 'assets/langs',
+        assetLoader: JsonAssetLoader(),
+        child: ScreenUtilInit(
+          designSize: const Size(375, 812),
+          builder: (context, child) {
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle.dark,
+                child: GetMaterialApp(
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                  locale: context.locale,
+                  title: "Application",
+                  theme: ThemeData(),
+                  debugShowCheckedModeBanner: false,
+                  initialRoute: AppPages.INITIAL,
+                  getPages: AppPages.routes,
+                ));
+          },
+        )),
   );
 }
